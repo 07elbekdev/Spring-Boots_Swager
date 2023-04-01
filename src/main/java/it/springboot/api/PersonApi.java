@@ -8,17 +8,17 @@ import it.springboot.service.PersonService;
 
 import java.util.List;
 
-@RestController("it/springboot/api/v1/person")//I should to not forget to use this without it/springboot and then see what's gonna happen
+@RestController("api/v1/person")
 @RequiredArgsConstructor
 public class PersonApi {
     private final PersonService personService;
 
-    @GetMapping
+    @GetMapping("show/AllPeople")
     public List<Person> getAll() {
         return personService.getPeople();
     }
 
-    @PostMapping
+    @PostMapping("save/Person")
     public String savePerson(@RequestBody PersonRequest request) {
         personService.register(request);
         return "Person with name " + request.getName() + " saved";
@@ -33,5 +33,16 @@ public class PersonApi {
     public String deleteById(@PathVariable Long id) {
         personService.deleteById(id);
         return "Person with id " + id + " successfully deleted !!!";
+    }
+
+    @PutMapping("updateById/{id}")
+    public String updateById(@PathVariable Long id, @RequestBody PersonRequest personRequest) {
+        personService.updateById(id, personRequest);
+        return "Person with id " + id + " successfully updated !!!";
+    }
+
+    @GetMapping("search/{keyword}")
+    public List<Person> search(@PathVariable String keyword) {
+        return personService.searchByName(keyword);
     }
 }

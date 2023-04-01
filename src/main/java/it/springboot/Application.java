@@ -23,11 +23,11 @@ public class Application {
     @PostConstruct
     public void init() {
         personRepository.saveAll(List.of(
-                new Person("Beks", 16),
-                new Person("Kuku", 17),
-                new Person("Dastan", 18),
+                new Person("Todd", 16),
+                new Person("John", 17),
+                new Person("Alex", 18),
                 new Person("Daniel", 19),
-                new Person("Sardor", 29)
+                new Person("Marlen", 29)
         ));
     }
 }

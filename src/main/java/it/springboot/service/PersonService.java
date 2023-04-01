@@ -43,4 +43,19 @@ public class PersonService {
         }
         personRepository.deleteById(id);
     }
+
+    public void updateById(Long id, PersonRequest personRequest) {
+        boolean exist = personRepository.existsById(id);
+        if (!exist) {
+            throw new MyUniversalException("Person with id " + id + " doesn't exist");
+        }
+        Person person = getById(id);
+        person.setName(personRequest.getName());
+        person.setAge(personRequest.getAge());
+        personRepository.save(person);
+    }
+
+    public List<Person> searchByName(String keyword) {
+        return personRepository.search(keyword.toUpperCase());
+    }
 }
